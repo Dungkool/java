@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class P73 {
 
 	public static void main(String[] args) {
+		String str = "";
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		System.out.println("명령어를 입력하시오.(q,i,d,s)");

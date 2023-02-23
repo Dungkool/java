@@ -6,6 +6,7 @@ public class P68 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		String s2 = "11";
 		String s1 = "10";
 		int s2 = Integer.parseInt(s1); // 문자를 숫자로 변환, double은 double.parsedouble
 		int a = 10;

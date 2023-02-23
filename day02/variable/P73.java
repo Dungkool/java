@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class P73 {
 
 	public static void main(String[] args) {
+		String str = "";
 		// TODO Auto-generated method stub
 		int a = 10;
 		Scanner sc = new Scanner(System.in);

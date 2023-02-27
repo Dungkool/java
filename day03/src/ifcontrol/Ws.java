@@ -32,7 +32,7 @@ public class Ws {
 		avg2 = (sum2 * 1.0)/cnt2;
 		avg3 = (sum3 * 1.0)/cnt3;
 		
-		System.out.printf("%d, %4.2f \n", sum1, avg1);
+		System.out.println("합계는 " + sum1 + " 평균은 " + avg1);
 		System.out.printf("%d, %4.2f \n", sum2, avg2);
 		System.out.printf("%d, %4.2f \n", sum3, avg3);
 		
@@ -41,27 +41,35 @@ public class Ws {
 		double avg4 = 0, avg5 = 0, avg6 = 0;
 		int cnt4 = 0, cnt5 = 0, cnt6 = 0;
 		
-		int i = 1;
-		while(i <= 100) {			// i가 for문 안에서만 사용
-			if(i%3 == 0) {
-				sum4 += i;
+		int j = 1;
+		while(j <= 100) {			// i가 for문 안에서만 사용
+			if(j%3 == 0) {
+				sum4 += j;
 				cnt4++;
-				}
-			if(i%4 == 0) {
-				sum5 += i;
+				} j++;
+			}
+				
+		int k = 1;
+		while(k <= 100) {
+			if(k%4 == 0) {
+				sum5 += k;
 				cnt5++;
-				}
-			if(i%7 == 0) {
-				sum6 += i;
+				} k++;
+			}
+		
+		int l = 1;
+		while(l <= 100) {
+			if(l%7 == 0) {
+				sum6 += l;
 				cnt6++;
-				}
-		}
+				} l++;
+			}
 		
 		avg4 = (sum4 * 1.0)/cnt4;
 		avg5 = (sum5 * 1.0)/cnt5;
 		avg6 = (sum6 * 1.0)/cnt6;
 		
-		System.out.printf("%d, %4.2f \n", sum4, avg4);
+		System.out.printf("\n%d, %4.2f \n", sum4, avg4);
 		System.out.printf("%d, %4.2f \n", sum5, avg5);
 		System.out.printf("%d, %4.2f \n", sum6, avg6);
 	}

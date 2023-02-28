@@ -5,35 +5,38 @@ public class Employee {
 	private String name ;
 	private int salary ;
 	
+	public Employee() {
+		
+	}
+	
 	public Employee(String name, int salary) {
 		this.name = name;
 		this.salary = salary;
 	}
 	
-	// 이름 출력
+	// 이름 반환
 	public String getName() {
-		return this.name;
+		return name;
 	}
 	
-	// 급여 출력
+	// 급여 반환
 	public int getSalary() {
 	     return salary;
 	}
 	
-	// 연봉 출력
+	// 연봉 반환
 	public double getAnnSalary() {
-		return (this.salary*12);
+		return (salary*12);
 	}
 	
-	// 세금 출력 (연봉 x 0.175)
+	// 세금 반환
 	public double getTax() {
-		return ((this.salary*12) * 0.175);
+		return ((salary*12) * 0.175);
 	}
 
 	@Override
 	public String toString() {
 		return "Employee [name=" + name + ", salary=" + salary + "]";
 	}
-
-
+	
 }

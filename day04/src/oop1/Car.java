@@ -7,6 +7,10 @@ public class Car {
 	public int size;
 	
 	// constructor(생성자) : 연결해주는 역할
+	//public Car() {} 아무것도 안 써도 default constructor 자동 생성
+	// 그러나 argument가 있는 constructor를 만들 경우 default 미생성
+
+
 	public Car() {
 		this.name = "k1";  // this를 생략해서 작성 가능 , name = "k1";
 		this.color = "red";

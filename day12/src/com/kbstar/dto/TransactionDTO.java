@@ -47,8 +47,8 @@ public class TransactionDTO {
 	}
 	@Override
 	public String toString() {
-		return "거래일시는 " + date + " 계좌번호는 " + accNo + " 잔액은 " + balance + " 입출금 중 " + type
-				+ " 거래유형은 " + desc;
+		return "거래일시는 " + date + " 계좌번호는 " + accNo + " 이체금액은 " + balance + " 거래유형은 " + type
+				+ " 적요는 " + desc;
 	}
 	
 	

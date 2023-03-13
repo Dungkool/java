@@ -47,14 +47,21 @@ public class AccountDAO implements DAO<String, AccountDTO> {
 		}
 		return list;
 	}
-	
+
 	// 사용자의 계좌 조회
 	// obj : 사용자의 id
-	// Object obj = new String();   java의 모든 class를 object에서 상속
+	// Object obj = new String(); java의 모든 class를 object에서 상속
 	@Override
 	public List<AccountDTO> search(Object obj) throws Exception {
-		
-		return null;
+		List<AccountDTO> list = new ArrayList<AccountDTO>();
+		Collection<AccountDTO> col = db.values();
+		for (AccountDTO acc : col) { // acc의 holder가 id값과 같음
+			// 계좌 중에서 id값이 obj와 같은 것들만 넣어야 함
+			if (acc.getHolder().equals(obj)) {
+				list.add(acc);
+			}
+		}
+		return list;
 	}
 
 }

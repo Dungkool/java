@@ -16,7 +16,6 @@ public class App {
 	public static void main(String[] args) {
 		BankService<UserDTO, AccountDTO, TransactionDTO, String, String> service = new BankServiceImpl();
 		Scanner sc = new Scanner(System.in);
-		CRUDService<String, UserDTO> userService = new UserService();
 
 		while (true) {
 			UserDTO user = null;
@@ -68,21 +67,26 @@ public class App {
 							String desc = sc.next();
 							service.transaction(sendAcc, receiveAcc, balance, desc);
 							System.out.println("Transaction Completed...");
-							
+
 						} else if (cmn.equals("a")) {
-							System.out.println("Select Account...");
+							System.out.println("Your All Accounts...");
 							List<AccountDTO> list = service.getAllAccount(user.getId());
-							for(AccountDTO data : list) {
-							System.out.println(data);
+							for (AccountDTO acc : list) {		// list는 for문으로 출력
+								System.out.println(acc);
 							}
-							
+
 						} else if (cmn.equals("i")) {
 							System.out.println("User Info...");
 							user = service.getUserInfo(user.getId());
 							System.out.println(user);
-							
+
 						} else if (cmn.equals("tr")) {
-							System.out.println("Select transaction...");
+							System.out.println("Select Your Account...");
+							String accNo = sc.next();
+							List<TransactionDTO> list = service.getAllTr(accNo);
+							for (TransactionDTO tr : list) {		// list는 for문으로 출력
+								System.out.println(tr);
+							}
 						}
 
 					}

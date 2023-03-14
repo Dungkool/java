@@ -4,24 +4,25 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.SQLRecoverableException;
 import java.util.List;
 
-import com.kbstar.dao.CustDaoImpl;
-import com.kbstar.dto.Cust;
+import com.kbstar.dao.ItemDaoImpl;
+import com.kbstar.dto.Item;
 import com.kbstar.frame.CRUDService;
 import com.kbstar.frame.DAO;
+import com.kbstar.frame.MakeItemNumber;
 
-public class CustCRUDServiceImpl implements CRUDService<String, Cust> {
+public class ItemCRUDServiceImpl implements CRUDService<String, Item> {
 
-	DAO<String, String, Cust> dao;
+	DAO<String, String, Item> dao;
 
-	public CustCRUDServiceImpl() {
-		dao = new CustDaoImpl();
+	public ItemCRUDServiceImpl() {
+		dao = new ItemDaoImpl();
 	}
 
 	@Override
-	public void register(Cust v) throws Exception {
-		// 데이터 검증
-		// DB입력
+	public void register(Item v) throws Exception {
 		try {
+			String id = MakeItemNumber.makeItemNum();
+			v.setId(id);
 			dao.insert(v);
 		} catch (Exception e) {
 			if (e instanceof SQLIntegrityConstraintViolationException)
@@ -30,20 +31,20 @@ public class CustCRUDServiceImpl implements CRUDService<String, Cust> {
 				throw new Exception("시스템 장애입니다.");
 			}
 		}
+
 	}
 
 	@Override
-	public void modify(Cust v) throws Exception {
+	public void modify(Item v) throws Exception {
 		try {
 			dao.update(v);
 		} catch (Exception e) {
 			if (e instanceof SQLRecoverableException) {
-				throw new Exception("존재하지 않는 ID입니다.");
+				throw new Exception("시스템 장애");
 			} else {
-				throw new Exception("해당 ID가 존재하지 않습니다.");
+				throw new Exception("해당 ID는 존재하지 않습니다.");
 			}
 		}
-
 	}
 
 	@Override
@@ -52,41 +53,41 @@ public class CustCRUDServiceImpl implements CRUDService<String, Cust> {
 			dao.delete(k);
 		} catch (Exception e) {
 			if (e instanceof SQLRecoverableException) {
-				throw new Exception("시스템 장애");
+				throw new Exception("네트워크 오류입니다.");
 			}
-			throw new Exception("존재하지 않는 ID입니다.");
+			throw e;
 		}
 	}
 
 	@Override
-	public Cust get(String k) throws Exception {
-		Cust cust = null;
+	public Item get(String k) throws Exception {
+		Item obj = null;
 		try {
-			cust = dao.select(k);
+			obj = dao.select(k);
 		} catch (Exception e) {
 			if (e instanceof SQLRecoverableException) {
 				throw new Exception("시스템 장애입니다.");
 			} else {
+				// e.printStackTrace();
 				throw new Exception("존재하지 않는 ID입니다.");
 			}
-
 		}
-		return cust;
+		return obj;
 	}
 
 	@Override
-	public List<Cust> get() throws Exception {
-		List<Cust> list = null;
-
+	public List<Item> get() throws Exception {
+		// 1. 반환받을 바구니(list) 먼저 초기화
+		List<Item> list = null;
 		try {
 			list = dao.selectAll();
 		} catch (Exception e) {
 			if (e instanceof SQLRecoverableException) {
-				throw new Exception("시스템 장애입니다.");
+				throw new Exception("시스템 장애가 발생했습니다."); // 서버오류일 때
+			} else {
+				throw new Exception("내역이 존재하지 않습니다."); // 조회할 데이터 없을 때
 			}
 		}
-
 		return list;
 	}
-
 }

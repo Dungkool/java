@@ -8,14 +8,12 @@ public class CustSelectTest {
 
 	public static void main(String[] args) {
 		CRUDService<String, Cust> crudService = new CustCRUDServiceImpl();
-		new CustCRUDServiceImpl();
 		Cust cust = null;
 		try {
-			cust = crudService.get("idd301");
+			cust = crudService.get("id02");
 			System.out.println(cust);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
-
 }

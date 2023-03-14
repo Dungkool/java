@@ -1,20 +1,28 @@
 package com.kbstar.test;
 
+import java.util.List;
+
 import com.kbstar.dto.Cust;
 import com.kbstar.frame.CRUDService;
 import com.kbstar.service.CustCRUDServiceImpl;
 
-public class CustUpdateTest {
+public class CustSelectAllTest {
 
 	public static void main(String[] args) {
 		CRUDService<String, Cust> crudService = new CustCRUDServiceImpl();
-		Cust cust = new Cust("id50545", "3333", "Tom Cruise", 55);
+		List<Cust> list = null;
 		try {
-			crudService.modify(cust);
-			System.out.println("성공");
+			list = crudService.get();
+			if (list.size() == 0) {
+				System.out.println("데이터가 없습니다.");
+				return;
+			} else {
+				for (Cust obj : list) {
+					System.out.println(obj);
+				}
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
-
 }

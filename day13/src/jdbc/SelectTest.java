@@ -35,7 +35,7 @@ public class SelectTest {
 				String db_pwd = rset.getString("pwd");
 				String name = rset.getString("name");
 				int age = rset.getInt("age");
-				System.out.println(db_id + "" + name + "" + age);
+				System.out.println(db_id + " " + name + " " + age);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

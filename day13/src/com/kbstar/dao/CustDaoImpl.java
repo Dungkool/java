@@ -1,13 +1,11 @@
 package com.kbstar.dao;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import com.kbstar.dto.Cust;
 import com.kbstar.frame.DAO;
@@ -15,7 +13,7 @@ import com.kbstar.frame.Sql;
 
 public class CustDaoImpl implements DAO<String, String, Cust> {
 
-	public CustDaoImpl() { // 디폴트에서 오라클 연결
+	public CustDaoImpl() { // 디폴트에서 Driver Loading
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException e) {
@@ -24,20 +22,6 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 			return; // 오류나면 실행 종료
 		}
 		System.out.println("Driver Loading 성공");
-	}
-
-	public Connection getConnection() throws Exception { // 여기서 연결
-		Connection con = null;
-
-		Properties props = new Properties();
-		String fileName = "db_info.txt";
-		FileInputStream in = new FileInputStream(fileName);
-		props.load(in);
-		String id = props.getProperty("DB_ID");
-		String pwd = props.getProperty("DB_PWD");
-		String url = props.getProperty("DB_URL");
-		con = DriverManager.getConnection(url, id, pwd);
-		return con;
 	}
 
 	@Override
@@ -88,29 +72,46 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 
 	@Override
 	public Cust select(String k) throws Exception {
-		Cust cust = null;
+		Cust cust = null; // Cust tpye이므로 Cust 선언 및 return
 		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.selectSql);) {
 			pstmt.setString(1, k);
 			try (ResultSet rset = pstmt.executeQuery()) {
 				rset.next(); // 한 칸 이동시켜야 select 가능
-				String db_id = rset.getString("id");
-				String db_pwd = rset.getString("pwd");
+				String id = rset.getString("id");
+				String pwd = rset.getString("pwd");
 				String name = rset.getString("name");
 				int age = rset.getInt("age");
-				cust = new Cust(db_id, db_pwd, name, age);
+				cust = new Cust(id, pwd, name, age); // 객체 생성
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		} catch (Exception e) {
+			throw e;
 		}
 		return cust;
 	}
 
 	@Override
 	public List<Cust> selectAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Cust> list = new ArrayList<>();
+		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.selectAllSql);) {
+			try (ResultSet rset = pstmt.executeQuery();) {
+				while (rset.next()) { // 데이터가 없을 때까지
+					Cust cust = null;
+					String id = rset.getString("id");
+					String pwd = rset.getString("pwd");
+					String name = rset.getString("name");
+					int age = rset.getInt("age");
+					cust = new Cust(id, pwd, name, age);
+					list.add(cust);
+				}
+			} catch (Exception e) {
+
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return list;
 	}
 
 	@Override

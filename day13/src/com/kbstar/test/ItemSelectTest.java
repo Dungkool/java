@@ -4,14 +4,16 @@ import com.kbstar.dto.Item;
 import com.kbstar.frame.CRUDService;
 import com.kbstar.service.ItemCRUDServiceImpl;
 
-public class CustDeleteTest {
+public class ItemSelectTest {
 
 	public static void main(String[] args) {
 		CRUDService<String, Item> Service = new ItemCRUDServiceImpl();
+		Item item = null;
 		try {
-			Service.remove("id111");
-			System.out.println("성공");
+			item = Service.get("202331499710055");
+			System.out.println(item);
 		} catch (Exception e) {
+			// e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
 	}
